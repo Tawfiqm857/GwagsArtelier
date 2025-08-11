@@ -1,0 +1,89 @@
+
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Users, Heart, Sparkles } from "lucide-react";
+
+const Hero = () => {
+  return (
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 gradient-hero opacity-10" />
+      
+      {/* Floating elements */}
+      <div className="absolute top-20 left-20 animate-float">
+        <div className="w-16 h-16 gradient-primary rounded-full opacity-20 blur-xl" />
+      </div>
+      <div className="absolute top-40 right-32 animate-float" style={{ animationDelay: '1s' }}>
+        <div className="w-12 h-12 gradient-secondary rounded-full opacity-20 blur-xl" />
+      </div>
+      <div className="absolute bottom-32 left-32 animate-float" style={{ animationDelay: '2s' }}>
+        <div className="w-20 h-20 bg-accent/20 rounded-full blur-xl" />
+      </div>
+
+      <div className="container mx-auto px-6 text-center relative z-10">
+        <div className="animate-fade-in">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-8">
+            <Sparkles className="w-4 h-4" />
+            Welcome to UnfoldTribe
+          </div>
+
+          {/* Main heading */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Where Stories
+            <br />
+            <span className="text-gradient">Unfold Together</span>
+          </h1>
+
+          {/* Subheading */}
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+            Join a community that celebrates growth, connection, and the beautiful journey of becoming who you're meant to be.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button size="lg" className="gradient-primary text-white px-8 py-6 text-lg shadow-glow hover:shadow-soft transition-all duration-300 group">
+              Start Your Journey
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button variant="outline" size="lg" className="px-8 py-6 text-lg border-2 hover:bg-muted transition-all duration-300">
+              Explore Communities
+            </Button>
+          </div>
+
+          {/* Stats */}
+          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center text-center">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 gradient-primary rounded-full flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold">10K+</div>
+                <div className="text-muted-foreground">Active Members</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 gradient-secondary rounded-full flex items-center justify-center">
+                <Heart className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold">50K+</div>
+                <div className="text-muted-foreground">Stories Shared</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold">100+</div>
+                <div className="text-muted-foreground">Communities</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
