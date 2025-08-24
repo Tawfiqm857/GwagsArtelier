@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Heart, Sparkles } from "lucide-react";
+import { ArrowRight, Users, Heart, MapPin } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -23,30 +22,30 @@ const Hero = () => {
         <div className="animate-fade-in">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-8">
-            <Sparkles className="w-4 h-4" />
-            Welcome to UnfoldTribe
+            <MapPin className="w-4 h-4" />
+            Welcome to GwagsPortrait
           </div>
 
           {/* Main heading */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Where Stories
+            Connect Gwagwalada
             <br />
-            <span className="text-gradient">Unfold Together</span>
+            <span className="text-gradient">To The World</span>
           </h1>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            Join a community that celebrates growth, connection, and the beautiful journey of becoming who you're meant to be.
+            Join the premier social network connecting people in Gwagwalada, Abuja and beyond. Share moments, build friendships, and grow your community.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button size="lg" className="gradient-primary text-white px-8 py-6 text-lg shadow-glow hover:shadow-soft transition-all duration-300 group">
-              Start Your Journey
+              Join GwagsPortrait
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button variant="outline" size="lg" className="px-8 py-6 text-lg border-2 hover:bg-muted transition-all duration-300">
-              Explore Communities
+              Explore Posts
             </Button>
           </div>
 
@@ -57,8 +56,8 @@ const Hero = () => {
                 <Users className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold">10K+</div>
-                <div className="text-muted-foreground">Active Members</div>
+                <div className="text-2xl font-bold">5K+</div>
+                <div className="text-muted-foreground">Active Users</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -66,17 +65,17 @@ const Hero = () => {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold">50K+</div>
-                <div className="text-muted-foreground">Stories Shared</div>
+                <div className="text-2xl font-bold">25K+</div>
+                <div className="text-muted-foreground">Posts Shared</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
+                <MapPin className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold">100+</div>
-                <div className="text-muted-foreground">Communities</div>
+                <div className="text-2xl font-bold">Gwagwalada</div>
+                <div className="text-muted-foreground">& Beyond</div>
               </div>
             </div>
           </div>

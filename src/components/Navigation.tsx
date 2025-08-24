@@ -1,10 +1,11 @@
-
 import { Button } from "@/components/ui/button";
-import { Menu, X, Users } from "lucide-react";
+import { Menu, X, Camera, Moon, Sun } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
@@ -13,22 +14,33 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
-              <Users className="w-5 h-5 text-white" />
+              <Camera className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gradient">UnfoldTribe</span>
+            <span className="text-xl font-bold text-gradient">GwagsPortrait</span>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              Communities
+              Feed
             </a>
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              Stories
+              Friends
             </a>
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              About
+              Groups
             </a>
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              Messages
+            </a>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="mr-2"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </Button>
             <Button variant="outline" className="mr-2">
               Sign In
             </Button>
@@ -53,14 +65,27 @@ const Navigation = () => {
           <div className="md:hidden mt-4 pb-4 border-t border-border">
             <div className="flex flex-col gap-4 pt-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Communities
+                Feed
               </a>
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Stories
+                Friends
               </a>
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                About
+                Groups
               </a>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                Messages
+              </a>
+              <div className="flex items-center justify-between pt-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                >
+                  {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {theme === "dark" ? "Light" : "Dark"} Mode
+                </Button>
+              </div>
               <div className="flex flex-col gap-2 pt-4">
                 <Button variant="outline">Sign In</Button>
                 <Button className="gradient-primary text-white">Join Now</Button>

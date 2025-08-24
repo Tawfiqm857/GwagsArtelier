@@ -2,7 +2,7 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
-import CommunityPreview from "@/components/CommunityPreview";
+import PostsFeed from "@/components/PostsFeed";
 
 const Index = () => {
   return (
@@ -10,7 +10,7 @@ const Index = () => {
       <Navigation />
       <Hero />
       <Features />
-      <CommunityPreview />
+      <PostsFeed />
     </div>
   );
 };

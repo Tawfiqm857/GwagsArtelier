@@ -1,43 +1,42 @@
-
 import { Card, CardContent } from "@/components/ui/card";
-import { MessageCircle, Users, BookOpen, Heart, Zap, Shield } from "lucide-react";
+import { MessageCircle, Users, Camera, Heart, Share2, UserPlus } from "lucide-react";
 
 const Features = () => {
   const features = [
     {
-      icon: MessageCircle,
-      title: "Story Circles",
-      description: "Share your journey in intimate circles where every voice matters and growth is celebrated.",
+      icon: Camera,
+      title: "Share Moments",
+      description: "Capture and share your daily life in Gwagwalada with beautiful photos and videos.",
       gradient: "gradient-primary"
     },
     {
       icon: Users,
-      title: "Tribe Building",
-      description: "Find your people and build meaningful connections that support your personal evolution.",
+      title: "Connect Locally",
+      description: "Find friends, neighbors, and community members in Gwagwalada and surrounding areas.",
       gradient: "gradient-secondary"
     },
     {
-      icon: BookOpen,
-      title: "Growth Journals",
-      description: "Document your transformation with guided prompts and reflection tools designed for insight.",
+      icon: MessageCircle,
+      title: "Real-time Chat",
+      description: "Stay connected with instant messaging, group chats, and community discussions.",
       gradient: "bg-accent"
     },
     {
       icon: Heart,
-      title: "Emotional Support",
-      description: "Access a network of caring individuals who understand your journey and celebrate your wins.",
+      title: "Like & Comment",
+      description: "Engage with posts through likes, comments, and reactions to build stronger connections.",
       gradient: "gradient-primary"
     },
     {
-      icon: Zap,
-      title: "Inspiration Hub",
-      description: "Discover daily inspiration, challenges, and opportunities to step into your fullest potential.",
+      icon: Share2,
+      title: "Share Stories",
+      description: "Share your experiences, events, and moments that matter to your community.",
       gradient: "gradient-secondary"
     },
     {
-      icon: Shield,
-      title: "Safe Space",
-      description: "Share vulnerably in a protected environment where authenticity is honored and respected.",
+      icon: UserPlus,
+      title: "Build Network",
+      description: "Grow your social circle by connecting with people who share your interests and location.",
       gradient: "bg-accent"
     }
   ];
@@ -48,10 +47,10 @@ const Features = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Everything You Need to
-            <span className="text-gradient"> Unfold</span>
+            <span className="text-gradient"> Connect</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Our platform provides the tools, community, and support you need to embrace your authentic self and grow alongside others.
+            GwagsPortrait brings people together with powerful social features designed for building authentic local connections.
           </p>
         </div>
 
