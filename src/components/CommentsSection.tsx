@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Trash2 } from "lucide-react";
+import { createNotification } from "@/hooks/useNotifications";
 
 interface Comment {
   id: string;
@@ -23,10 +24,11 @@ interface Comment {
 
 interface CommentsSectionProps {
   postId: string;
+  postOwnerId: string;
   commentsCount: number;
 }
 
-export function CommentsSection({ postId, commentsCount }: CommentsSectionProps) {
+export function CommentsSection({ postId, postOwnerId, commentsCount }: CommentsSectionProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const [comments, setComments] = useState<Comment[]>([]);
@@ -69,13 +71,15 @@ export function CommentsSection({ postId, commentsCount }: CommentsSectionProps)
     if (!user || !newComment.trim()) return;
 
     setSubmitting(true);
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('comments')
       .insert({
         post_id: postId,
         user_id: user.id,
         content: newComment.trim(),
-      });
+      })
+      .select()
+      .single();
 
     if (error) {
       toast({
@@ -86,6 +90,11 @@ export function CommentsSection({ postId, commentsCount }: CommentsSectionProps)
     } else {
       setNewComment("");
       fetchComments();
+      
+      // Create notification for post owner
+      if (postOwnerId !== user.id) {
+        createNotification(postOwnerId, 'comment', user.id, postId, data.id);
+      }
     }
     setSubmitting(false);
   };
