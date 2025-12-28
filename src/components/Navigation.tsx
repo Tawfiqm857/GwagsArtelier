@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, Camera, Moon, Sun, LogOut } from "lucide-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,38 +11,49 @@ const Navigation = () => {
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
   };
 
+  const isActive = (path: string) => location.pathname === path;
+
+  const navLinks = [
+    { path: '/', label: 'Feed' },
+    { path: '/friends', label: 'Friends' },
+    { path: '/groups', label: 'Groups' },
+    { path: '/messages', label: 'Messages' },
+  ];
+
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
               <Camera className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold text-gradient">GwagsPortrait</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              Feed
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              Friends
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              Groups
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-              Messages
-            </a>
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`transition-colors ${
+                  isActive(link.path)
+                    ? 'text-primary font-semibold'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
             <Button
               variant="ghost"
               size="sm"
@@ -97,18 +108,20 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border">
             <div className="flex flex-col gap-4 pt-4">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Feed
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Friends
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Groups
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                Messages
-              </a>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`transition-colors ${
+                    isActive(link.path)
+                      ? 'text-primary font-semibold'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
               <div className="flex items-center justify-between pt-4">
                 <Button
                   variant="ghost"
@@ -121,16 +134,21 @@ const Navigation = () => {
               </div>
               <div className="flex flex-col gap-2 pt-4">
                 {user ? (
-                  <Button variant="outline" onClick={handleSignOut} className="gap-2">
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
-                  </Button>
+                  <>
+                    <Link to="/profile" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full">My Profile</Button>
+                    </Link>
+                    <Button variant="outline" onClick={handleSignOut} className="gap-2">
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </Button>
+                  </>
                 ) : (
                   <>
-                    <Link to="/auth">
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
                       <Button variant="outline" className="w-full">Sign In</Button>
                     </Link>
-                    <Link to="/auth">
+                    <Link to="/auth" onClick={() => setIsOpen(false)}>
                       <Button className="gradient-primary text-white w-full">Join Now</Button>
                     </Link>
                   </>
