@@ -1,11 +1,21 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Camera, Moon, Sun } from "lucide-react";
+import { Menu, X, Camera, Moon, Sun, LogOut } from "lucide-react";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
+import { useAuth } from "@/hooks/useAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
@@ -41,12 +51,33 @@ const Navigation = () => {
             >
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
-            <Button variant="outline" className="mr-2">
-              Sign In
-            </Button>
-            <Button className="gradient-primary text-white">
-              Join Now
-            </Button>
+            {user ? (
+              <div className="flex items-center gap-4">
+                <Avatar className="w-8 h-8 border-2 border-primary">
+                  <AvatarImage src="" />
+                  <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                    {user.email?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <Button variant="outline" onClick={handleSignOut} className="gap-2">
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link to="/auth">
+                  <Button variant="outline" className="mr-2">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/auth">
+                  <Button className="gradient-primary text-white">
+                    Join Now
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -87,8 +118,21 @@ const Navigation = () => {
                 </Button>
               </div>
               <div className="flex flex-col gap-2 pt-4">
-                <Button variant="outline">Sign In</Button>
-                <Button className="gradient-primary text-white">Join Now</Button>
+                {user ? (
+                  <Button variant="outline" onClick={handleSignOut} className="gap-2">
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                ) : (
+                  <>
+                    <Link to="/auth">
+                      <Button variant="outline" className="w-full">Sign In</Button>
+                    </Link>
+                    <Link to="/auth">
+                      <Button className="gradient-primary text-white w-full">Join Now</Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
