@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { UserPlus, UserMinus, Users } from "lucide-react";
+import { createNotification } from "@/hooks/useNotifications";
 
 interface FollowButtonProps {
   targetUserId: string;
@@ -80,6 +81,7 @@ export function FollowButton({ targetUserId, onFollowChange }: FollowButtonProps
         setIsFollowing(true);
         onFollowChange?.();
         toast({ title: "Following!" });
+        createNotification(targetUserId, 'follow', user.id);
       }
     }
 

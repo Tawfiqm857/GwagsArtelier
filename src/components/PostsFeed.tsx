@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { CommentsSection } from "./CommentsSection";
+import { createNotification } from "@/hooks/useNotifications";
 
 interface Post {
   id: string;
@@ -226,6 +227,12 @@ const PostsFeed = () => {
 
       if (!error) {
         setUserLikes(prev => new Set(prev).add(postId));
+        
+        // Create notification for post owner
+        const post = posts.find(p => p.id === postId);
+        if (post && post.user_id !== user.id) {
+          createNotification(post.user_id, 'like', user.id, postId);
+        }
       }
     }
   };
@@ -405,7 +412,7 @@ const PostsFeed = () => {
                   </div>
 
                   {/* Comments Section */}
-                  <CommentsSection postId={post.id} commentsCount={post.comments_count || 0} />
+                  <CommentsSection postId={post.id} postOwnerId={post.user_id} commentsCount={post.comments_count || 0} />
                 </CardContent>
               </Card>
             ))

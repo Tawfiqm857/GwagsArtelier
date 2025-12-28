@@ -5,6 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import NotificationsDropdown from "@/components/NotificationsDropdown";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +65,7 @@ const Navigation = () => {
             </Button>
             {user ? (
               <div className="flex items-center gap-4">
+                <NotificationsDropdown />
                 <Link to="/profile">
                   <Avatar className="w-8 h-8 border-2 border-primary cursor-pointer hover:opacity-80 transition-opacity">
                     <AvatarImage src="" />
