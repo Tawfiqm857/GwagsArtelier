@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,14 @@ import { Heart, MessageCircle, Share2, MoreHorizontal, Send, Image as ImageIcon,
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { CommentsSection } from "./CommentsSection";
 
 interface Post {
   id: string;
   content: string;
   image_url: string | null;
   likes_count: number;
+  comments_count: number;
   created_at: string;
   user_id: string;
   profiles: {
@@ -24,11 +26,6 @@ interface Post {
   };
 }
 
-interface PostLike {
-  post_id: string;
-  user_id: string;
-}
-
 const PostsFeed = () => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -37,6 +34,9 @@ const PostsFeed = () => {
   const [loading, setLoading] = useState(true);
   const [newPost, setNewPost] = useState("");
   const [posting, setPosting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchPosts();
@@ -60,6 +60,13 @@ const PostsFeed = () => {
         () => {
           fetchPosts();
           if (user) fetchUserLikes();
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'comments' },
+        () => {
+          fetchPosts();
         }
       )
       .subscribe();
@@ -104,15 +111,69 @@ const PostsFeed = () => {
     }
   };
 
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          variant: "destructive",
+          title: "Image too large",
+          description: "Please select an image under 5MB",
+        });
+        return;
+      }
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const removeSelectedImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   const handleCreatePost = async () => {
-    if (!user || !newPost.trim()) return;
+    if (!user || (!newPost.trim() && !selectedImage)) return;
 
     setPosting(true);
+    let imageUrl = null;
+
+    // Upload image if selected
+    if (selectedImage) {
+      const fileExt = selectedImage.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `${user.id}/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('post-images')
+        .upload(filePath, selectedImage);
+
+      if (uploadError) {
+        toast({
+          variant: "destructive",
+          title: "Error uploading image",
+          description: uploadError.message,
+        });
+        setPosting(false);
+        return;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('post-images')
+        .getPublicUrl(filePath);
+      
+      imageUrl = publicUrl;
+    }
+
     const { error } = await supabase
       .from('posts')
       .insert({
         user_id: user.id,
-        content: newPost.trim(),
+        content: newPost.trim() || '',
+        image_url: imageUrl,
       });
 
     if (error) {
@@ -123,6 +184,7 @@ const PostsFeed = () => {
       });
     } else {
       setNewPost("");
+      removeSelectedImage();
       toast({ title: "Post created!" });
     }
     setPosting(false);
@@ -141,7 +203,6 @@ const PostsFeed = () => {
     const isLiked = userLikes.has(postId);
 
     if (isLiked) {
-      // Unlike
       const { error } = await supabase
         .from('post_likes')
         .delete()
@@ -156,7 +217,6 @@ const PostsFeed = () => {
         });
       }
     } else {
-      // Like
       const { error } = await supabase
         .from('post_likes')
         .insert({
@@ -217,14 +277,48 @@ const PostsFeed = () => {
                       className="resize-none bg-background/50 border-border/50"
                       rows={3}
                     />
+                    
+                    {/* Image Preview */}
+                    {imagePreview && (
+                      <div className="relative inline-block">
+                        <img 
+                          src={imagePreview} 
+                          alt="Preview" 
+                          className="max-h-40 rounded-lg object-cover"
+                        />
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
+                          onClick={removeSelectedImage}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
+
                     <div className="flex justify-between items-center">
-                      <Button variant="ghost" size="sm" className="text-muted-foreground">
-                        <ImageIcon className="w-5 h-5 mr-2" />
-                        Photo
-                      </Button>
+                      <div>
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageSelect}
+                          className="hidden"
+                        />
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-muted-foreground"
+                          onClick={() => fileInputRef.current?.click()}
+                        >
+                          <ImageIcon className="w-5 h-5 mr-2" />
+                          Photo
+                        </Button>
+                      </div>
                       <Button 
                         onClick={handleCreatePost}
-                        disabled={!newPost.trim() || posting}
+                        disabled={(!newPost.trim() && !selectedImage) || posting}
                         className="gradient-primary text-white"
                       >
                         <Send className="w-4 h-4 mr-2" />
@@ -274,14 +368,16 @@ const PostsFeed = () => {
                 </CardHeader>
                 
                 <CardContent className="pt-0">
-                  <p className="text-foreground mb-4 leading-relaxed">{post.content}</p>
+                  {post.content && (
+                    <p className="text-foreground mb-4 leading-relaxed">{post.content}</p>
+                  )}
                   
                   {post.image_url && (
                     <div className="mb-4 rounded-lg overflow-hidden">
                       <img 
                         src={post.image_url} 
                         alt="Post content" 
-                        className="w-full h-80 object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full max-h-[500px] object-cover hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   )}
@@ -299,7 +395,7 @@ const PostsFeed = () => {
                       </Button>
                       <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
                         <MessageCircle className="w-5 h-5 mr-2" />
-                        0
+                        {post.comments_count || 0}
                       </Button>
                       <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
                         <Share2 className="w-5 h-5 mr-2" />
@@ -307,6 +403,9 @@ const PostsFeed = () => {
                       </Button>
                     </div>
                   </div>
+
+                  {/* Comments Section */}
+                  <CommentsSection postId={post.id} commentsCount={post.comments_count || 0} />
                 </CardContent>
               </Card>
             ))

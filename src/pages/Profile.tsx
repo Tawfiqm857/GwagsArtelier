@@ -8,8 +8,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Camera, Edit2, Save, X, Heart, MessageCircle, ArrowLeft } from 'lucide-react';
+import { Camera, Edit2, Save, X, Heart, ArrowLeft } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import { FollowButton, FollowStats } from '@/components/FollowButton';
 
 interface Profile {
   id: string;
@@ -235,23 +236,27 @@ export default function Profile() {
                     </div>
                   ) : (
                     <>
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center justify-between mb-2 flex-wrap gap-3">
                         <h1 className="text-2xl font-bold text-foreground">
                           {profile.display_name || profile.username || 'Anonymous'}
                         </h1>
-                        {isOwnProfile && (
-                          <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} className="gap-2">
-                            <Edit2 className="w-4 h-4" />
-                            Edit
-                          </Button>
-                        )}
+                        <div className="flex gap-2">
+                          <FollowButton targetUserId={profileId!} />
+                          {isOwnProfile && (
+                            <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} className="gap-2">
+                              <Edit2 className="w-4 h-4" />
+                              Edit
+                            </Button>
+                          )}
+                        </div>
                       </div>
                       {profile.username && (
                         <p className="text-muted-foreground mb-3">@{profile.username}</p>
                       )}
-                      <p className="text-foreground">{profile.bio || 'No bio yet'}</p>
-                      <div className="mt-4 flex gap-6 text-sm text-muted-foreground">
+                      <p className="text-foreground mb-4">{profile.bio || 'No bio yet'}</p>
+                      <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                         <span><strong className="text-foreground">{posts.length}</strong> posts</span>
+                        <FollowStats userId={profileId!} />
                       </div>
                     </>
                   )}
