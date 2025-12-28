@@ -53,12 +53,14 @@ const Navigation = () => {
             </Button>
             {user ? (
               <div className="flex items-center gap-4">
-                <Avatar className="w-8 h-8 border-2 border-primary">
-                  <AvatarImage src="" />
-                  <AvatarFallback className="bg-primary text-primary-foreground text-sm">
-                    {user.email?.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <Link to="/profile">
+                  <Avatar className="w-8 h-8 border-2 border-primary cursor-pointer hover:opacity-80 transition-opacity">
+                    <AvatarImage src="" />
+                    <AvatarFallback className="bg-primary text-primary-foreground text-sm">
+                      {user.email?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Link>
                 <Button variant="outline" onClick={handleSignOut} className="gap-2">
                   <LogOut className="w-4 h-4" />
                   Sign Out
