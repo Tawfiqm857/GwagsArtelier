@@ -23,6 +23,7 @@ const Navigation = () => {
 
   const navLinks = [
     { path: '/', label: 'Feed' },
+    { path: '/posts', label: 'Posts' },
     { path: '/friends', label: 'Friends' },
     { path: '/groups', label: 'Groups' },
     { path: '/messages', label: 'Messages' },
