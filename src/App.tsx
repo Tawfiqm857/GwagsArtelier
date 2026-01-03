@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Friends from "./pages/Friends";
 import Groups from "./pages/Groups";
 import Messages from "./pages/Messages";
+import Posts from "./pages/Posts";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/friends" element={<Friends />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/messages" element={<Messages />} />
+              <Route path="/posts" element={<Posts />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
