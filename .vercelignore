@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Testing
+coverage/
+.nyc_output/
+
+# Production
+dist/
+build/
+
+# Source
+src/
+
+# Misc
+.DS_Store
+.env.local
+.env.*.local
+*.pem
+
+# Logs
+logs/
+*.log
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Documentation
+README.md
+CHANGELOG.md
+
+# Config files
+tsconfig.json
+eslintrc.json
+tailwind.config.js
+postcss.config.js
+vite.config.ts
