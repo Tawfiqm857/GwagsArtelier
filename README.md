@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# Gwags Artelier
 
-## Project info
+A modern web application built with React, TypeScript, and Vite, deployed on Vercel.
 
-**URL**: https://lovable.dev/projects/b31a78f3-420e-4994-bfdc-b1eede479f42
+**Live Site**: https://gwags-portrait.vercel.app
 
-## How can I edit this code?
+## Getting Started
 
-There are several ways of editing your application.
+### Prerequisites
+- Node.js (v18 or higher) - [Install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- npm (comes with Node.js)
 
-**Use Lovable**
+### Local Development
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b31a78f3-420e-4994-bfdc-b1eede479f42) and start prompting.
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/Tawfiqm857/GwagsArtelier.git
+   cd GwagsArtelier
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+2. **Install dependencies**
+   ```sh
+   npm install
+   ```
 
-**Use your preferred IDE**
+3. **Start the development server**
+   ```sh
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+4. **Build for production**
+   ```sh
+   npm run build
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technologies
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Vite** - Fast build tool and dev server
+- **React** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - High-quality React components
+- **React Hook Form** - Performant form handling
+- **React Router** - Client-side routing
+- **Supabase** - Backend services
+- **React Query** - Server state management
 
-## How can I deploy this project?
+## Project Scripts
 
-Simply open [Lovable](https://lovable.dev/projects/b31a78f3-420e-4994-bfdc-b1eede479f42) and click on Share -> Publish.
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run build:dev` - Build for development
+- `npm run lint` - Run ESLint to check code quality
+- `npm run preview` - Preview production build locally
 
-## Can I connect a custom domain to my Lovable project?
+## Deployment
 
-Yes, you can!
+This project is deployed on **Vercel**. Every push to the main branch automatically triggers a deployment.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Deploy Your Own
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1. Push your code to GitHub
+2. Go to [Vercel](https://vercel.com)
+3. Import this repository
+4. Vercel will automatically detect it's a Vite project and configure the build settings
+5. Your project will be live!
+
+### Environment Variables
+
+If you need environment variables, add them in your Vercel project settings under Environment Variables.
+
+## File Structure
+
+```
+.
+├── src/
+│   ├── components/     # React components
+│   ├── pages/          # Page components
+│   ├── lib/            # Utility functions
+│   ├── App.tsx         # Main App component
+│   └── main.tsx        # Entry point
+├── public/             # Static assets
+├── vite.config.ts      # Vite configuration
+├── tailwind.config.js  # Tailwind CSS configuration
+├── package.json        # Dependencies and scripts
+└── README.md           # This file
+```
+
+## Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Commit and push to your branch
+4. Open a pull request
+
+## License
+
+This project is open source and available under the MIT License.
