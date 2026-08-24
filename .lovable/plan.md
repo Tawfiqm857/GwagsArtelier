@@ -8,6 +8,9 @@ The request is for installability ("Add to Home Screen" / app icon). Offline sup
 
 ## Plan
 
+### 0. Fix the current build error (prerequisite)
+`src/hooks/useAuth.tsx` is missing the `resetPassword` function in the context value, causing a TypeScript error. Add the missing function so the app compiles before any new PWA assets are introduced.
+
 ### 1. Generate app icons
 Create square PNG icons that match the GwagsArtelier red/black/white brand and place them in `public/`:
 - `public/icon-192x192.png` (192x192, opaque background)
