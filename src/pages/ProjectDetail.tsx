@@ -316,11 +316,17 @@ export default function ProjectDetail() {
                   <div className="grid gap-4">
                     {photos.map((photo) => (
                       <div key={photo.id} className="space-y-2">
-                        <img
-                          src={photo.photo_url}
-                          alt={photo.caption || "Project photo"}
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
+                        {photoUrls[photo.photo_url] ? (
+                          <img
+                            src={photoUrls[photo.photo_url]}
+                            alt={photo.caption || "Project photo"}
+                            className="w-full h-48 object-cover rounded-lg"
+                          />
+                        ) : (
+                          <div className="w-full h-48 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
+                            <Camera className="w-8 h-8" />
+                          </div>
+                        )}
                         <p className="text-sm">{photo.caption}</p>
                         <div className="flex items-center justify-between">
                           <Badge variant={photo.verified ? "default" : "outline"}>

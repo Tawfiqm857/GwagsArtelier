@@ -233,8 +233,8 @@ export default function Marketplace() {
             {filtered.map((listing) => (
               <Card key={listing.id} className="overflow-hidden">
                 <div className="aspect-video bg-muted">
-                  {listing.images.length > 0 ? (
-                    <img src={listing.images[0]} alt={listing.title} className="w-full h-full object-cover" />
+                  {listing.images.length > 0 && imageUrls[listing.images[0]] ? (
+                    <img src={imageUrls[listing.images[0]]} alt={listing.title} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                       <Tag className="w-10 h-10" />
