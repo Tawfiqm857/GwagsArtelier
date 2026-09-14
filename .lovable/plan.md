@@ -1,56 +1,62 @@
-# Add "Install as App" / Home-Screen Support
+# GEM Rebrand + Install as App
 
-## Goal
-Make GwagsArtelier installable on phones and desktops as a standalone app icon, without adding offline caching or service workers.
+Two things in one pass: rename the app to GEM with your shield logo throughout, recolour it to match that logo, and add the option to install it as an app on phones and computers.
 
-## Why manifest-only
-The request is for installability ("Add to Home Screen" / app icon). Offline support is a separate concern and is not requested. A web app manifest is the standard, lightweight way to enable install prompts and standalone launch behavior.
+## 1. Fix the current build error (prerequisite)
 
-## Plan
+The sign-in code is mid-edit from a previous session and currently stops the app from building — the "forgot password" function was declared but never finished. Completing it is the first step so everything else can be seen in the preview.
 
-### 0. Fix the current build error (prerequisite)
-`src/hooks/useAuth.tsx` is missing the `resetPassword` function in the context value, causing a TypeScript error. Add the missing function so the app compiles before any new PWA assets are introduced.
+## 2. Rename to GEM
 
-### 1. Generate app icons
-Create square PNG icons that match the GwagsArtelier red/black/white brand and place them in `public/`:
-- `public/icon-192x192.png` (192x192, opaque background)
-- `public/icon-512x512.png` (512x512, opaque background)
-- `public/apple-touch-icon.png` (180x180, opaque background)
+The old name appears in these places and all become "GEM":
 
-The existing `public/favicon.ico` will be kept.
+- Top navigation bar
+- Home page hero heading and welcome badge
+- Features section
+- Sign in / sign up page heading and welcome message
+- Password reset page
+- Browser tab title and sharing preview text
+- Project README
 
-### 2. Create web app manifest
-Add `public/manifest.webmanifest` containing:
-- `name`: "GwagsArtelier"
-- `short_name`: "GwagsArtelier"
-- `description`: A concise app description
-- `start_url`: "/"
-- `display`: "standalone"
-- `background_color`: brand-appropriate dark/red value
-- `theme_color`: brand-appropriate red value
-- `icons`: references to the 192x192 and 512x512 PNGs with `purpose: "any"`
+Supporting copy keeps the Gwagwalada meaning, using the logo's own wording: "Gwagwalada Elite Movement — empowering youth, building legacy."
 
-### 3. Update `index.html` head tags
-Add the following inside `<head>`:
-- `<link rel="manifest" href="/manifest.webmanifest" />`
-- `<meta name="theme-color" content="#..." />` matching the manifest
-- `<link rel="apple-touch-icon" href="/apple-touch-icon.png" />`
-- Ensure the existing favicon link is present and correct
+## 3. Use your logo
 
-### 4. Verify in preview
-Open the app preview, confirm in DevTools Application > Manifest that the manifest is parsed, icons load, and no errors appear.
+- Save the uploaded shield as the app's logo image.
+- Top navigation shows the logo on its own, no text beside it (as chosen), sized to fit the bar cleanly on phone and desktop.
+- Sign in / sign up page shows the logo above the form.
+- Set the browser tab icon (favicon) from the same shield.
 
-## What is NOT included
-- No service worker
-- No offline caching
-- No `vite-plugin-pwa` or `workbox` additions
-- No push notifications
+## 4. Recolour the app to match the logo
 
-These can be planned separately if requested later.
+Replace the current red / black / white scheme with the logo's palette, applied through the app's central colour settings so every button, link, badge and card updates together:
 
-## Files to change/create
-- Create `public/manifest.webmanifest`
-- Create `public/icon-192x192.png`
-- Create `public/icon-512x512.png`
-- Create `public/apple-touch-icon.png`
-- Update `index.html`
+- Deep green as the main colour
+- Royal blue as the secondary colour
+- Gold as the highlight / accent colour
+- Clean white and near-black for page backgrounds and text
+
+Light and dark mode both get their own tuned versions so text stays readable, and contrast is checked on buttons, badges and the feed.
+
+## 5. Add "install as app"
+
+So people can add GEM to their phone home screen or install it on desktop with its own icon:
+
+- Add an app description file naming GEM, its colours and its icons.
+- Add app icon images at the sizes phones and desktops need, made from the shield logo.
+- Add the matching tags to the page so browsers offer the install option.
+
+This covers installing and launching GEM as a standalone app with its own icon. It does not add offline use — the app still needs internet, as it does today.
+
+## 6. Check the result
+
+Open the preview and confirm: the logo shows in the navigation and on the sign-in page, the new colours read well in both light and dark mode, the tab icon updated, and the browser recognises GEM as installable with no errors.
+
+## Technical notes
+
+- Finish `resetPassword` in `src/hooks/useAuth.tsx` (add the function and include it in the context value) to clear the TS2741 error.
+- Create a CDN asset pointer for the logo via `lovable-assets create` from `/mnt/user-uploads/GEM_logo.jpg`; import the pointer in `Navigation.tsx` and `Auth.tsx`.
+- Favicon must be a real square file: `magick` the upload down to `public/favicon.png`, point `index.html` at it, remove `public/favicon.ico`.
+- Rewrite the HSL token blocks in `src/index.css` (`:root` and `.dark`) plus the gradient/shadow tokens; update `tailwind.config.ts` if new named colours are added. No hardcoded colour utilities in components.
+- Manifest-only PWA: `public/manifest.webmanifest` (`display: standalone`, `start_url: "/"`, theme/background colours, 192px and 512px icons), `public/icon-192x192.png`, `public/icon-512x512.png`, `public/apple-touch-icon.png`, plus `manifest`, `theme-color` and `apple-touch-icon` tags in `index.html`. No service worker, no `vite-plugin-pwa`.
+- Replace the stale `index.html` metadata (title, description, `og:*` still referencing the old project) with GEM copy.
