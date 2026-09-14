@@ -210,6 +210,78 @@ export type Database = {
         }
         Relationships: []
       }
+      leadership: {
+        Row: {
+          bio: string | null
+          display_order: number
+          id: string
+          name: string
+          photo_url: string | null
+          role_title: string
+        }
+        Insert: {
+          bio?: string | null
+          display_order?: number
+          id?: string
+          name: string
+          photo_url?: string | null
+          role_title: string
+        }
+        Update: {
+          bio?: string | null
+          display_order?: number
+          id?: string
+          name?: string
+          photo_url?: string | null
+          role_title?: string
+        }
+        Relationships: []
+      }
+      marketplace_listings: {
+        Row: {
+          category: Database["public"]["Enums"]["marketplace_category"]
+          created_at: string
+          description: string
+          id: string
+          images: string[]
+          is_active: boolean
+          is_negotiable: boolean
+          price: number
+          seller_id: string
+          title: string
+          updated_at: string
+          whatsapp_number: string | null
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["marketplace_category"]
+          created_at?: string
+          description: string
+          id?: string
+          images?: string[]
+          is_active?: boolean
+          is_negotiable?: boolean
+          price: number
+          seller_id: string
+          title: string
+          updated_at?: string
+          whatsapp_number?: string | null
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["marketplace_category"]
+          created_at?: string
+          description?: string
+          id?: string
+          images?: string[]
+          is_active?: boolean
+          is_negotiable?: boolean
+          price?: number
+          seller_id?: string
+          title?: string
+          updated_at?: string
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
@@ -394,6 +466,255 @@ export type Database = {
         }
         Relationships: []
       }
+      project_milestones: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          id: string
+          project_id: string
+          target_date: string | null
+          title: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_id: string
+          target_date?: string | null
+          title: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_id?: string
+          target_date?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_milestones_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_photos: {
+        Row: {
+          caption: string | null
+          id: string
+          photo_url: string
+          project_id: string
+          submitted_at: string
+          uploaded_by: string
+          verified: boolean
+        }
+        Insert: {
+          caption?: string | null
+          id?: string
+          photo_url: string
+          project_id: string
+          submitted_at?: string
+          uploaded_by: string
+          verified?: boolean
+        }
+        Update: {
+          caption?: string | null
+          id?: string
+          photo_url?: string
+          project_id?: string
+          submitted_at?: string
+          uploaded_by?: string
+          verified?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_photos_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          budget_approved: number
+          budget_spent: number
+          contractor_contact: string | null
+          contractor_name: string | null
+          created_at: string
+          description: string | null
+          entity_badge: Database["public"]["Enums"]["project_entity_badge"]
+          id: string
+          start_date: string | null
+          status: Database["public"]["Enums"]["project_status"]
+          target_completion_date: string | null
+          title: string
+          updated_at: string
+          ward: Database["public"]["Enums"]["project_ward"]
+        }
+        Insert: {
+          budget_approved?: number
+          budget_spent?: number
+          contractor_contact?: string | null
+          contractor_name?: string | null
+          created_at?: string
+          description?: string | null
+          entity_badge: Database["public"]["Enums"]["project_entity_badge"]
+          id?: string
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          target_completion_date?: string | null
+          title: string
+          updated_at?: string
+          ward: Database["public"]["Enums"]["project_ward"]
+        }
+        Update: {
+          budget_approved?: number
+          budget_spent?: number
+          contractor_contact?: string | null
+          contractor_name?: string | null
+          created_at?: string
+          description?: string | null
+          entity_badge?: Database["public"]["Enums"]["project_entity_badge"]
+          id?: string
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          target_completion_date?: string | null
+          title?: string
+          updated_at?: string
+          ward?: Database["public"]["Enums"]["project_ward"]
+        }
+        Relationships: []
+      }
+      revenue_logs: {
+        Row: {
+          amount: number
+          id: string
+          linked_project_id: string | null
+          notes: string | null
+          recorded_at: string
+          source: string
+          ward: Database["public"]["Enums"]["project_ward"] | null
+        }
+        Insert: {
+          amount: number
+          id?: string
+          linked_project_id?: string | null
+          notes?: string | null
+          recorded_at?: string
+          source: string
+          ward?: Database["public"]["Enums"]["project_ward"] | null
+        }
+        Update: {
+          amount?: number
+          id?: string
+          linked_project_id?: string | null
+          notes?: string | null
+          recorded_at?: string
+          source?: string
+          ward?: Database["public"]["Enums"]["project_ward"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "revenue_logs_linked_project_id_fkey"
+            columns: ["linked_project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_requests: {
+        Row: {
+          contact_info: string | null
+          description: string
+          id: string
+          is_anonymous: boolean
+          request_type: Database["public"]["Enums"]["service_request_type"]
+          requester_id: string | null
+          status: Database["public"]["Enums"]["service_request_status"]
+          submitted_at: string
+          updated_at: string
+          ward: Database["public"]["Enums"]["project_ward"] | null
+        }
+        Insert: {
+          contact_info?: string | null
+          description: string
+          id?: string
+          is_anonymous?: boolean
+          request_type: Database["public"]["Enums"]["service_request_type"]
+          requester_id?: string | null
+          status?: Database["public"]["Enums"]["service_request_status"]
+          submitted_at?: string
+          updated_at?: string
+          ward?: Database["public"]["Enums"]["project_ward"] | null
+        }
+        Update: {
+          contact_info?: string | null
+          description?: string
+          id?: string
+          is_anonymous?: boolean
+          request_type?: Database["public"]["Enums"]["service_request_type"]
+          requester_id?: string | null
+          status?: Database["public"]["Enums"]["service_request_status"]
+          submitted_at?: string
+          updated_at?: string
+          ward?: Database["public"]["Enums"]["project_ward"] | null
+        }
+        Relationships: []
+      }
+      transparency_documents: {
+        Row: {
+          document_type: Database["public"]["Enums"]["document_type"]
+          file_url: string
+          id: string
+          published_at: string
+          title: string
+        }
+        Insert: {
+          document_type: Database["public"]["Enums"]["document_type"]
+          file_url: string
+          id?: string
+          published_at?: string
+          title: string
+        }
+        Update: {
+          document_type?: Database["public"]["Enums"]["document_type"]
+          file_url?: string
+          id?: string
+          published_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -402,7 +723,38 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role:
+        | "resident"
+        | "verified_trader"
+        | "volunteer"
+        | "moderator"
+        | "admin"
+      document_type:
+        | "Financial Summary"
+        | "Balance Sheet"
+        | "Audit Report"
+        | "Press Release"
+        | "Governance Guideline"
+      marketplace_category:
+        | "Goods"
+        | "Services"
+        | "Food"
+        | "Fashion"
+        | "Electronics"
+        | "Home & Garden"
+        | "Beauty & Health"
+        | "Other"
+      project_entity_badge:
+        | "GEM Grassroots"
+        | "Area Council Municipal"
+        | "Joint Initiative"
+      project_status: "Planning" | "In Progress" | "Completed"
+      project_ward: "Gwagwalada Center" | "Paiko" | "Ibwa" | "Zuba" | "Kutunku"
+      service_request_status: "Submitted" | "In Review" | "Resolved"
+      service_request_type:
+        | "Resident Assistance"
+        | "Volunteer Onboarding"
+        | "Grievance Report"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -529,6 +881,44 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: [
+        "resident",
+        "verified_trader",
+        "volunteer",
+        "moderator",
+        "admin",
+      ],
+      document_type: [
+        "Financial Summary",
+        "Balance Sheet",
+        "Audit Report",
+        "Press Release",
+        "Governance Guideline",
+      ],
+      marketplace_category: [
+        "Goods",
+        "Services",
+        "Food",
+        "Fashion",
+        "Electronics",
+        "Home & Garden",
+        "Beauty & Health",
+        "Other",
+      ],
+      project_entity_badge: [
+        "GEM Grassroots",
+        "Area Council Municipal",
+        "Joint Initiative",
+      ],
+      project_status: ["Planning", "In Progress", "Completed"],
+      project_ward: ["Gwagwalada Center", "Paiko", "Ibwa", "Zuba", "Kutunku"],
+      service_request_status: ["Submitted", "In Review", "Resolved"],
+      service_request_type: [
+        "Resident Assistance",
+        "Volunteer Onboarding",
+        "Grievance Report",
+      ],
+    },
   },
 } as const

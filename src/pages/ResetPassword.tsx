@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import BrandLogo from '@/components/BrandLogo';
 
 export default function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -57,10 +58,13 @@ export default function ResetPassword() {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md border-primary/20 bg-card">
         <CardHeader className="text-center">
+          <div className="flex justify-center mb-4">
+            <BrandLogo imageClassName="h-16 w-auto" />
+          </div>
           <CardTitle className="text-2xl font-bold text-primary">Set a new password</CardTitle>
           <CardDescription className="text-muted-foreground">
             {ready
-              ? 'Choose a new password for your GwagsArtelier account.'
+              ? 'Choose a new password for your GEM account.'
               : 'Open this page from the reset link in your email to continue.'}
           </CardDescription>
         </CardHeader>
