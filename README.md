@@ -1,8 +1,12 @@
-# Gwags Artelier
+# GEM — Gwagwalada Elite Movement
 
-A modern web application built with React, TypeScript, and Vite, deployed on Vercel.
+A modern community platform built with React, TypeScript, and Vite.
 
-**Live Site**: https://gwags-portrait.vercel.app
+**Live Site**: https://gwags-portrait.lovable.app
+
+## About GEM
+
+GEM connects people in Gwagwalada, Abuja, Nigeria and beyond. Members can share posts, join groups, send messages, follow each other, and stay informed through real-time notifications. The platform also supports public transparency modules for community projects, revenue tracking, governance information, service requests, and a local marketplace.
 
 ## Getting Started
 
@@ -58,19 +62,7 @@ This project is built with:
 
 ## Deployment
 
-This project is deployed on **Vercel**. Every push to the main branch automatically triggers a deployment.
-
-### Deploy Your Own
-
-1. Push your code to GitHub
-2. Go to [Vercel](https://vercel.com)
-3. Import this repository
-4. Vercel will automatically detect it's a Vite project and configure the build settings
-5. Your project will be live!
-
-### Environment Variables
-
-If you need environment variables, add them in your Vercel project settings under Environment Variables.
+This project is deployed on **Lovable**. Pushing to the main branch automatically triggers a deployment.
 
 ## File Structure
 
@@ -84,7 +76,7 @@ If you need environment variables, add them in your Vercel project settings unde
 │   └── main.tsx        # Entry point
 ├── public/             # Static assets
 ├── vite.config.ts      # Vite configuration
-├── tailwind.config.js  # Tailwind CSS configuration
+├── tailwind.config.ts  # Tailwind CSS configuration
 ├── package.json        # Dependencies and scripts
 └── README.md           # This file
 ```

@@ -19,7 +19,7 @@ const Features = () => {
       icon: MessageCircle,
       title: "Real-time Chat",
       description: "Stay connected with instant messaging, group chats, and community discussions.",
-      gradient: "bg-accent"
+      gradient: "gradient-gold"
     },
     {
       icon: Heart,
@@ -37,7 +37,7 @@ const Features = () => {
       icon: UserPlus,
       title: "Build Network",
       description: "Grow your social circle by connecting with people who share your interests and location.",
-      gradient: "bg-accent"
+      gradient: "gradient-gold"
     }
   ];
 
@@ -50,7 +50,7 @@ const Features = () => {
             <span className="text-gradient"> Connect</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            GwagsPortrait brings people together with powerful social features designed for building authentic local connections.
+            GEM brings people together with powerful social features designed for building authentic local connections.
           </p>
         </div>
 
@@ -59,7 +59,7 @@ const Features = () => {
             <Card key={index} className="shadow-soft hover:shadow-glow transition-all duration-300 border-0 bg-card/50 backdrop-blur-sm group hover:scale-105">
               <CardContent className="p-8">
                 <div className={`w-14 h-14 ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="w-7 h-7 text-white" />
+                  <feature.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
