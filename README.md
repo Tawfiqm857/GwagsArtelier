@@ -2,7 +2,7 @@
 
 A modern community platform built with React, TypeScript, and Vite.
 
-**Live Site**: https://gwags-portrait.lovable.app
+**Live Site**: https://gwags-elite-movement.lovable.app
 
 ## About GEM
 
@@ -18,8 +18,8 @@ GEM connects people in Gwagwalada, Abuja, Nigeria and beyond. Members can share 
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/Tawfiqm857/GwagsArtelier.git
-   cd GwagsArtelier
+   git clone https://github.com/Tawfiqm857/GEM.git
+   cd GEM
    ```
 
 2. **Install dependencies**
