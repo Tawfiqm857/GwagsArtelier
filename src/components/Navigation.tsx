@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Camera, Moon, Sun, LogOut } from "lucide-react";
+import { Menu, X, Moon, Sun, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NotificationsDropdown from "@/components/NotificationsDropdown";
+import BrandLogo from "@/components/BrandLogo";
+import InstallAppButton from "@/components/InstallAppButton";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
