@@ -45,8 +45,8 @@ const Navigation = () => {
             <BrandLogo imageClassName="h-9 w-auto" />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
+          {/* Desktop links */}
+          <div className="hidden xl:flex items-center gap-5">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -60,17 +60,21 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2">
             <InstallAppButton />
             <Button
               variant="ghost"
               size="sm"
+              aria-label="Toggle dark mode"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="mr-2"
             >
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
             {user ? (
-              <div className="flex items-center gap-4">
+              <>
                 <NotificationsDropdown />
                 <Link to="/profile">
                   <Avatar className="w-8 h-8 border-2 border-primary cursor-pointer hover:opacity-80 transition-opacity">
@@ -80,95 +84,29 @@ const Navigation = () => {
                     </AvatarFallback>
                   </Avatar>
                 </Link>
-                <Button variant="outline" onClick={handleSignOut} className="gap-2">
+                <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-2">
                   <LogOut className="w-4 h-4" />
-                  Sign Out
+                  <span className="hidden sm:inline">Sign Out</span>
                 </Button>
-              </div>
+              </>
             ) : (
               <>
                 <Link to="/auth">
-                  <Button variant="outline" className="mr-2">
-                    Sign In
-                  </Button>
+                  <Button variant="outline" size="sm">Sign In</Button>
                 </Link>
-                <Link to="/auth">
-                  <Button className="gradient-primary text-primary-foreground">
+                <Link to="/auth" className="hidden sm:block">
+                  <Button size="sm" className="gradient-primary text-primary-foreground">
                     Join Now
                   </Button>
                 </Link>
               </>
             )}
           </div>
-
-          {/* Mobile menu button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="lg:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </Button>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-border">
-            <div className="flex flex-col gap-4 pt-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`transition-colors ${
-                    isActive(link.path)
-                      ? 'text-primary font-semibold'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="flex items-center justify-between gap-2 pt-4">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="gap-2"
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                >
-                  {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                  {theme === "dark" ? "Light" : "Dark"} Mode
-                </Button>
-                <InstallAppButton />
-              </div>
-              <div className="flex flex-col gap-2 pt-4">
-                {user ? (
-                  <>
-                    <Link to="/profile" onClick={() => setIsOpen(false)}>
-                      <Button variant="outline" className="w-full">My Profile</Button>
-                    </Link>
-                    <Button variant="outline" onClick={handleSignOut} className="gap-2">
-                      <LogOut className="w-4 h-4" />
-                      Sign Out
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/auth" onClick={() => setIsOpen(false)}>
-                      <Button variant="outline" className="w-full">Sign In</Button>
-                    </Link>
-                    <Link to="/auth" onClick={() => setIsOpen(false)}>
-                      <Button className="gradient-primary text-primary-foreground w-full">Join Now</Button>
-                    </Link>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
-    </nav>
+      </nav>
+      <BottomNav />
+    </>
   );
 };
 
