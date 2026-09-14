@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
 import { ArrowLeft, Camera, CheckCircle, MapPin, Calendar, Banknote, User, Phone } from "lucide-react";
+import { useSignedUrls } from "@/lib/storage";
 
 interface Project {
   id: string;
