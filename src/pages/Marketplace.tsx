@@ -51,6 +51,11 @@ export default function Marketplace() {
   const [files, setFiles] = useState<FileList | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const imageUrls = useSignedUrls(
+    "marketplace-images",
+    listings.flatMap((l) => l.images || [])
+  );
+
   useEffect(() => {
     fetchListings();
   }, []);
@@ -90,8 +95,7 @@ export default function Marketplace() {
           setSubmitting(false);
           return;
         }
-        const { data: urlData } = supabase.storage.from("marketplace-images").getPublicUrl(path);
-        uploadedImages.push(urlData.publicUrl);
+        uploadedImages.push(path);
       }
     }
 

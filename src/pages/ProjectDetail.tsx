@@ -63,6 +63,8 @@ export default function ProjectDetail() {
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  const photoUrls = useSignedUrls("project-photos", photos.map((p) => p.photo_url));
+
   useEffect(() => {
     if (!id) return;
     fetchProject();
@@ -104,12 +106,10 @@ export default function ProjectDetail() {
       return;
     }
 
-    const { data: publicUrlData } = supabase.storage.from("project-photos").getPublicUrl(fileName);
-
     const { error: insertError } = await supabase.from("project_photos").insert({
       project_id: id,
       uploaded_by: user.id,
-      photo_url: publicUrlData.publicUrl,
+      photo_url: fileName,
       caption,
     });
 
