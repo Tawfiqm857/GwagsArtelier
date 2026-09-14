@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navigation from "@/components/Navigation";
 import { User, Award, Quote } from "lucide-react";
+import { useSignedUrls } from "@/lib/storage";
 
 interface Leader {
   id: string;
@@ -17,6 +18,7 @@ interface Leader {
 export default function Governance() {
   const [leaders, setLeaders] = useState<Leader[]>([]);
   const [loading, setLoading] = useState(true);
+  const photoUrls = useSignedUrls("leadership-photos", leaders.map((l) => l.photo_url || ""));
 
   useEffect(() => {
     fetchLeaders();
@@ -61,8 +63,8 @@ export default function Governance() {
               {leaders.map((leader) => (
                 <Card key={leader.id} className="overflow-hidden">
                   <div className="aspect-square bg-muted flex items-center justify-center">
-                    {leader.photo_url ? (
-                      <img src={leader.photo_url} alt={leader.name} className="w-full h-full object-cover" />
+                    {leader.photo_url && photoUrls[leader.photo_url] ? (
+                      <img src={photoUrls[leader.photo_url]} alt={leader.name} className="w-full h-full object-cover" />
                     ) : (
                       <User className="w-20 h-20 text-muted-foreground" />
                     )}

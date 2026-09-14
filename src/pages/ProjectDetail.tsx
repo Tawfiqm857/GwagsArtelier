@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
 import { ArrowLeft, Camera, CheckCircle, MapPin, Calendar, Banknote, User, Phone } from "lucide-react";
+import { useSignedUrls } from "@/lib/storage";
 
 interface Project {
   id: string;
@@ -63,6 +64,8 @@ export default function ProjectDetail() {
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  const photoUrls = useSignedUrls("project-photos", photos.map((p) => p.photo_url));
+
   useEffect(() => {
     if (!id) return;
     fetchProject();
@@ -104,12 +107,10 @@ export default function ProjectDetail() {
       return;
     }
 
-    const { data: publicUrlData } = supabase.storage.from("project-photos").getPublicUrl(fileName);
-
     const { error: insertError } = await supabase.from("project_photos").insert({
       project_id: id,
       uploaded_by: user.id,
-      photo_url: publicUrlData.publicUrl,
+      photo_url: fileName,
       caption,
     });
 
@@ -315,11 +316,17 @@ export default function ProjectDetail() {
                   <div className="grid gap-4">
                     {photos.map((photo) => (
                       <div key={photo.id} className="space-y-2">
-                        <img
-                          src={photo.photo_url}
-                          alt={photo.caption || "Project photo"}
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
+                        {photoUrls[photo.photo_url] ? (
+                          <img
+                            src={photoUrls[photo.photo_url]}
+                            alt={photo.caption || "Project photo"}
+                            className="w-full h-48 object-cover rounded-lg"
+                          />
+                        ) : (
+                          <div className="w-full h-48 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
+                            <Camera className="w-8 h-8" />
+                          </div>
+                        )}
                         <p className="text-sm">{photo.caption}</p>
                         <div className="flex items-center justify-between">
                           <Badge variant={photo.verified ? "default" : "outline"}>

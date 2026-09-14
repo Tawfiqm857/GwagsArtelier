@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useToast } from "@/hooks/use-toast";
 import { Search, Phone, Tag } from "lucide-react";
+import { useSignedUrls } from "@/lib/storage";
 
 const categories = ["All", "Goods", "Services", "Food", "Fashion", "Electronics", "Home & Garden", "Beauty & Health", "Other"];
 
@@ -50,6 +51,11 @@ export default function Marketplace() {
   const [whatsapp, setWhatsapp] = useState("");
   const [files, setFiles] = useState<FileList | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  const imageUrls = useSignedUrls(
+    "marketplace-images",
+    listings.flatMap((l) => l.images || [])
+  );
 
   useEffect(() => {
     fetchListings();
@@ -90,8 +96,7 @@ export default function Marketplace() {
           setSubmitting(false);
           return;
         }
-        const { data: urlData } = supabase.storage.from("marketplace-images").getPublicUrl(path);
-        uploadedImages.push(urlData.publicUrl);
+        uploadedImages.push(path);
       }
     }
 
@@ -228,8 +233,8 @@ export default function Marketplace() {
             {filtered.map((listing) => (
               <Card key={listing.id} className="overflow-hidden">
                 <div className="aspect-video bg-muted">
-                  {listing.images.length > 0 ? (
-                    <img src={listing.images[0]} alt={listing.title} className="w-full h-full object-cover" />
+                  {listing.images.length > 0 && imageUrls[listing.images[0]] ? (
+                    <img src={imageUrls[listing.images[0]]} alt={listing.title} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                       <Tag className="w-10 h-10" />

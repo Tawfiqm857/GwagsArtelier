@@ -10,7 +10,7 @@
 - Phase 7: Navigation & routing polish (all civic/social routes registered)
 - Security linter clean (moved SECURITY DEFINER helpers to `private` schema, enabled leaked-password protection)
 
+- Private-bucket images now load via signed URLs (`src/lib/storage.ts`); project photos and marketplace images store object paths.
+
 ## Pending
-- Phase 8: Final preview verification
-- Create or set password for user "AdminUser" (no account with that username exists yet; awaiting user input)
-- Public buckets are blocked in workspace settings; project/leadership/marketplace images use `getPublicUrl` against private buckets and may need signed URLs until public buckets are enabled.
+- Admin password change for `tawfiqm857@gmail.com` blocked: leaked-password protection rejected "AdminUser" as weak. Awaiting a stronger password (or explicit instruction to disable the protection).
