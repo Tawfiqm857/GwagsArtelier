@@ -55,6 +55,7 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
+            <InstallAppButton />
             <Button
               variant="ghost"
               size="sm"
@@ -87,7 +88,7 @@ const Navigation = () => {
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="gradient-primary text-white">
+                  <Button className="gradient-primary text-primary-foreground">
                     Join Now
                   </Button>
                 </Link>
