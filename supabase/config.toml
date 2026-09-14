@@ -1,4 +1,4 @@
 project_id = "mrfsejkbnwkofnwmjwde"
 
-[functions.admin-set-password]
+[functions.revenue-webhook]
 verify_jwt = false
