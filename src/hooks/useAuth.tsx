@@ -73,20 +73,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   };
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string, remember = true) => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
+    });
+
+    if (!error) {
+      if (remember) {
+        localStorage.removeItem(SESSION_ONLY_KEY);
+      } else {
+        localStorage.setItem(SESSION_ONLY_KEY, 'true');
+      }
+      sessionStorage.setItem(TAB_ALIVE_KEY, 'true');
+    }
+
+    return { error };
+  };
+
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
     });
     return { error };
   };
 
   const signOut = async () => {
+    localStorage.removeItem(SESSION_ONLY_KEY);
+    sessionStorage.removeItem(TAB_ALIVE_KEY);
     await supabase.auth.signOut();
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut, resetPassword }}>
       {children}
     </AuthContext.Provider>
   );
