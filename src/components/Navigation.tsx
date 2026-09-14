@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Moon, Sun, LogOut } from "lucide-react";
-import { useState } from "react";
+import { Moon, Sun, LogOut } from "lucide-react";
+import BottomNav from "@/components/BottomNav";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,7 +10,6 @@ import BrandLogo from "@/components/BrandLogo";
 import InstallAppButton from "@/components/InstallAppButton";
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -37,7 +36,8 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
+    <>
+      <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
