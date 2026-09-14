@@ -125,15 +125,17 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex items-center justify-between pt-4">
+              <div className="flex items-center justify-between gap-2 pt-4">
                 <Button
                   variant="ghost"
                   size="sm"
+                  className="gap-2"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 >
                   {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                   {theme === "dark" ? "Light" : "Dark"} Mode
                 </Button>
+                <InstallAppButton />
               </div>
               <div className="flex flex-col gap-2 pt-4">
                 {user ? (
@@ -152,7 +154,7 @@ const Navigation = () => {
                       <Button variant="outline" className="w-full">Sign In</Button>
                     </Link>
                     <Link to="/auth" onClick={() => setIsOpen(false)}>
-                      <Button className="gradient-primary text-white w-full">Join Now</Button>
+                      <Button className="gradient-primary text-primary-foreground w-full">Join Now</Button>
                     </Link>
                   </>
                 )}
