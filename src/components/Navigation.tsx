@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Camera, Moon, Sun, LogOut } from "lucide-react";
+import { Menu, X, Moon, Sun, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NotificationsDropdown from "@/components/NotificationsDropdown";
+import BrandLogo from "@/components/BrandLogo";
+import InstallAppButton from "@/components/InstallAppButton";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,11 +36,8 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
-              <Camera className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-gradient">GwagsPortrait</span>
+          <Link to="/" className="flex items-center" aria-label="GEM home">
+            <BrandLogo imageClassName="h-9 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -56,6 +55,7 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
+            <InstallAppButton />
             <Button
               variant="ghost"
               size="sm"
@@ -88,7 +88,7 @@ const Navigation = () => {
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button className="gradient-primary text-white">
+                  <Button className="gradient-primary text-primary-foreground">
                     Join Now
                   </Button>
                 </Link>
@@ -125,15 +125,17 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex items-center justify-between pt-4">
+              <div className="flex items-center justify-between gap-2 pt-4">
                 <Button
                   variant="ghost"
                   size="sm"
+                  className="gap-2"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 >
                   {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                   {theme === "dark" ? "Light" : "Dark"} Mode
                 </Button>
+                <InstallAppButton />
               </div>
               <div className="flex flex-col gap-2 pt-4">
                 {user ? (
@@ -152,7 +154,7 @@ const Navigation = () => {
                       <Button variant="outline" className="w-full">Sign In</Button>
                     </Link>
                     <Link to="/auth" onClick={() => setIsOpen(false)}>
-                      <Button className="gradient-primary text-white w-full">Join Now</Button>
+                      <Button className="gradient-primary text-primary-foreground w-full">Join Now</Button>
                     </Link>
                   </>
                 )}
