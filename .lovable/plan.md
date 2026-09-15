@@ -39,7 +39,7 @@ Tabs:
 
 Database change: add admin/moderator write policies on `projects`, `project_milestones`, `revenue_logs`, `transparency_documents`, `leadership`, and admin write on `user_roles` (these tables currently have no insert/update policies, so the console would otherwise be blocked).
 
-## Phase 2 — Push notifications
+## Phase 3 — Push notifications
 
 Real phone-style notifications for messages, likes, comments, follows, and mentions even when the app is closed.
 
