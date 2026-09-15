@@ -56,7 +56,7 @@ Every member with the verified-trader role (or who has active listings) gets a s
 - Profile page gains a "View Shop" button for sellers; marketplace cards link to the seller's shop.
 - Admin console's Roles tab is how traders get verified. Add an optional `shop_name` field on profiles so shops can carry a brand name.
 
-## Phase 4 — Search & discovery
+## Phase 5 — Search & discovery
 
 - Search page (`/search`) with a bar in the navigation: tabs for **People**, **Posts**, **Projects**, and **Market**.
 - Searches names, usernames, bios, post text, project titles/descriptions, and listing titles/categories.
