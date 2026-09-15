@@ -62,7 +62,7 @@ Every member with the verified-trader role (or who has active listings) gets a s
 - Searches names, usernames, bios, post text, project titles/descriptions, and listing titles/categories.
 - Tapping a result goes straight to the profile, post, project, or listing.
 
-## Phase 5 — Polish & verification
+## Phase 6 — Polish & verification
 
 - Shimmer skeletons and empty states for all new views; mobile-first layout consistent with the bottom nav.
 - Full build check, admin and non-admin flow verification in the preview, and security linter re-run.
