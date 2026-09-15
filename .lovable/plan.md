@@ -48,7 +48,7 @@ Real phone-style notifications for messages, likes, comments, follows, and menti
 - VAPID keys generated and stored as backend secrets (no user action needed).
 - Notification clicks deep-link to the relevant page (chat, post, profile).
 
-## Phase 3 — Trader shops
+## Phase 4 — Trader shops
 
 Every member with the verified-trader role (or who has active listings) gets a storefront.
 
