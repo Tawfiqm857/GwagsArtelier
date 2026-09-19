@@ -66,6 +66,14 @@ const Navigation = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" aria-label="Search" asChild>
+              <Link to="/search"><Search className="w-4 h-4" /></Link>
+            </Button>
+            {isModerator && (
+              <Button variant="ghost" size="sm" aria-label="Admin console" asChild>
+                <Link to="/admin"><ShieldCheck className="w-4 h-4" /></Link>
+              </Button>
+            )}
             <InstallAppButton />
             <Button
               variant="ghost"
