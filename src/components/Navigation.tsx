@@ -85,6 +85,7 @@ const Navigation = () => {
             </Button>
             {user ? (
               <>
+                <PushOptIn />
                 <NotificationsDropdown />
                 <Link to="/profile">
                   <Avatar className="w-8 h-8 border-2 border-primary cursor-pointer hover:opacity-80 transition-opacity">
