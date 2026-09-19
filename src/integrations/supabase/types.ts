@@ -507,29 +507,47 @@ export type Database = {
       project_photos: {
         Row: {
           caption: string | null
+          flagged: boolean
           id: string
+          is_anonymous: boolean
+          latitude: number | null
+          longitude: number | null
+          media_type: Database["public"]["Enums"]["verification_media_type"]
           photo_url: string
           project_id: string
           submitted_at: string
-          uploaded_by: string
+          uploaded_by: string | null
+          verdict: Database["public"]["Enums"]["verification_verdict"] | null
           verified: boolean
         }
         Insert: {
           caption?: string | null
+          flagged?: boolean
           id?: string
+          is_anonymous?: boolean
+          latitude?: number | null
+          longitude?: number | null
+          media_type?: Database["public"]["Enums"]["verification_media_type"]
           photo_url: string
           project_id: string
           submitted_at?: string
-          uploaded_by: string
+          uploaded_by?: string | null
+          verdict?: Database["public"]["Enums"]["verification_verdict"] | null
           verified?: boolean
         }
         Update: {
           caption?: string | null
+          flagged?: boolean
           id?: string
+          is_anonymous?: boolean
+          latitude?: number | null
+          longitude?: number | null
+          media_type?: Database["public"]["Enums"]["verification_media_type"]
           photo_url?: string
           project_id?: string
           submitted_at?: string
-          uploaded_by?: string
+          uploaded_by?: string | null
+          verdict?: Database["public"]["Enums"]["verification_verdict"] | null
           verified?: boolean
         }
         Relationships: [
@@ -755,6 +773,12 @@ export type Database = {
         | "Resident Assistance"
         | "Volunteer Onboarding"
         | "Grievance Report"
+      verification_media_type: "photo" | "video"
+      verification_verdict:
+        | "Looks complete"
+        | "Still ongoing"
+        | "Not started / abandoned"
+        | "Something looks wrong"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -918,6 +942,13 @@ export const Constants = {
         "Resident Assistance",
         "Volunteer Onboarding",
         "Grievance Report",
+      ],
+      verification_media_type: ["photo", "video"],
+      verification_verdict: [
+        "Looks complete",
+        "Still ongoing",
+        "Not started / abandoned",
+        "Something looks wrong",
       ],
     },
   },
