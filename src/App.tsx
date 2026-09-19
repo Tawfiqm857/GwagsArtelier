@@ -20,6 +20,9 @@ import Governance from "./pages/Governance";
 import Services from "./pages/Services";
 import AdminServices from "./pages/AdminServices";
 import Marketplace from "./pages/Marketplace";
+import Admin from "./pages/Admin";
+import Shop from "./pages/Shop";
+import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
