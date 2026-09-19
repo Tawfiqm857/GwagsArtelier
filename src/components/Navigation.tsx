@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, LogOut } from "lucide-react";
+import { Moon, Sun, LogOut, Search, ShieldCheck } from "lucide-react";
+import { useRole } from "@/hooks/useRole";
 import BottomNav from "@/components/BottomNav";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
