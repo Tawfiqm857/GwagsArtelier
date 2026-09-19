@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, LogOut } from "lucide-react";
+import { Moon, Sun, LogOut, Search, ShieldCheck } from "lucide-react";
+import { useRole } from "@/hooks/useRole";
 import BottomNav from "@/components/BottomNav";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/ThemeProvider";
@@ -8,10 +9,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NotificationsDropdown from "@/components/NotificationsDropdown";
 import BrandLogo from "@/components/BrandLogo";
 import InstallAppButton from "@/components/InstallAppButton";
+import PushOptIn from "@/components/PushOptIn";
 
 const Navigation = () => {
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
+  const { isModerator } = useRole();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -64,6 +67,14 @@ const Navigation = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" aria-label="Search" asChild>
+              <Link to="/search"><Search className="w-4 h-4" /></Link>
+            </Button>
+            {isModerator && (
+              <Button variant="ghost" size="sm" aria-label="Admin console" asChild>
+                <Link to="/admin"><ShieldCheck className="w-4 h-4" /></Link>
+              </Button>
+            )}
             <InstallAppButton />
             <Button
               variant="ghost"
@@ -75,6 +86,7 @@ const Navigation = () => {
             </Button>
             {user ? (
               <>
+                <PushOptIn />
                 <NotificationsDropdown />
                 <Link to="/profile">
                   <Avatar className="w-8 h-8 border-2 border-primary cursor-pointer hover:opacity-80 transition-opacity">

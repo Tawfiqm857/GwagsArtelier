@@ -20,6 +20,9 @@ import Governance from "./pages/Governance";
 import Services from "./pages/Services";
 import AdminServices from "./pages/AdminServices";
 import Marketplace from "./pages/Marketplace";
+import Admin from "./pages/Admin";
+import Shop from "./pages/Shop";
+import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +52,9 @@ const App = () => (
               <Route path="/services" element={<Services />} />
               <Route path="/admin/services" element={<AdminServices />} />
               <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/shop/:userId" element={<Shop />} />
+              <Route path="/search" element={<Search />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -438,6 +438,7 @@ export type Database = {
           display_name: string | null
           id: string
           location: string | null
+          shop_name: string | null
           updated_at: string
           username: string | null
           website: string | null
@@ -449,6 +450,7 @@ export type Database = {
           display_name?: string | null
           id: string
           location?: string | null
+          shop_name?: string | null
           updated_at?: string
           username?: string | null
           website?: string | null
@@ -460,6 +462,7 @@ export type Database = {
           display_name?: string | null
           id?: string
           location?: string | null
+          shop_name?: string | null
           updated_at?: string
           username?: string | null
           website?: string | null
@@ -608,6 +611,33 @@ export type Database = {
           title?: string
           updated_at?: string
           ward?: Database["public"]["Enums"]["project_ward"]
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          p256dh: string
+          user_id: string
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          p256dh: string
+          user_id: string
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          p256dh?: string
+          user_id?: string
         }
         Relationships: []
       }

@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
-import { useRole } from "@/hooks/useRole";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
-import { ArrowLeft, Camera, CheckCircle, MapPin, Calendar, Banknote, User, Phone } from "lucide-react";
-import { useSignedUrls } from "@/lib/storage";
+import CommunityVerification from "@/components/CommunityVerification";
+import { ArrowLeft, CheckCircle, MapPin, Calendar, Banknote, User, Phone } from "lucide-react";
 
 interface Project {
   id: string;
@@ -40,31 +33,13 @@ interface Milestone {
   completed_at: string | null;
 }
 
-interface ProjectPhoto {
-  id: string;
-  photo_url: string;
-  caption: string;
-  submitted_at: string;
-  verified: boolean;
-}
-
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { isModerator } = useRole();
-  const { toast } = useToast();
 
   const [project, setProject] = useState<Project | null>(null);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
-  const [photos, setPhotos] = useState<ProjectPhoto[]>([]);
   const [loading, setLoading] = useState(true);
-  const [uploadOpen, setUploadOpen] = useState(false);
-  const [caption, setCaption] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const photoUrls = useSignedUrls("project-photos", photos.map((p) => p.photo_url));
 
   useEffect(() => {
     if (!id) return;
@@ -73,68 +48,16 @@ export default function ProjectDetail() {
 
   const fetchProject = async () => {
     setLoading(true);
-    const [{ data: projectData }, { data: milestonesData }, { data: photosData }] = await Promise.all([
+    const [{ data: projectData }, { data: milestonesData }] = await Promise.all([
       supabase.from("projects").select("*").eq("id", id).single(),
       supabase.from("project_milestones").select("*").eq("project_id", id).order("target_date", { ascending: true }),
-      supabase.from("project_photos").select("*").eq("project_id", id).order("submitted_at", { ascending: false }),
     ]);
 
     setProject(projectData || null);
     setMilestones(milestonesData || []);
-    setPhotos(photosData || []);
     setLoading(false);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
-
-  const handleUpload = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user || !id || !selectedFile) return;
-
-    setUploading(true);
-    const fileName = `${user.id}/${Date.now()}-${selectedFile.name}`;
-    const { error: uploadError } = await supabase.storage
-      .from("project-photos")
-      .upload(fileName, selectedFile);
-
-    if (uploadError) {
-      toast({ variant: "destructive", title: "Upload failed", description: uploadError.message });
-      setUploading(false);
-      return;
-    }
-
-    const { error: insertError } = await supabase.from("project_photos").insert({
-      project_id: id,
-      uploaded_by: user.id,
-      photo_url: fileName,
-      caption,
-    });
-
-    setUploading(false);
-    if (insertError) {
-      toast({ variant: "destructive", title: "Could not save photo", description: insertError.message });
-    } else {
-      toast({ title: "Photo submitted", description: "It will appear after moderator verification." });
-      setCaption("");
-      setSelectedFile(null);
-      setUploadOpen(false);
-      fetchProject();
-    }
-  };
-
-  const verifyPhoto = async (photoId: string, verified: boolean) => {
-    const { error } = await supabase.from("project_photos").update({ verified }).eq("id", photoId);
-    if (error) {
-      toast({ variant: "destructive", title: "Update failed", description: error.message });
-    } else {
-      toast({ title: verified ? "Photo verified" : "Photo unverified" });
-      fetchProject();
-    }
-  };
 
   if (loading) {
     return (
@@ -273,81 +196,7 @@ export default function ProjectDetail() {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Eye on the Ground</CardTitle>
-                {user && (
-                  <Dialog open={uploadOpen} onOpenChange={setUploadOpen}>
-                    <DialogTrigger asChild>
-                      <Button size="sm" className="gap-2">
-                        <Camera className="w-4 h-4" /> Submit photo
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Submit a site photo</DialogTitle>
-                      </DialogHeader>
-                      <form onSubmit={handleUpload} className="space-y-4 mt-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="photo">Photo</Label>
-                          <Input id="photo" type="file" accept="image/*" onChange={handleFileChange} />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="caption">Caption</Label>
-                          <Textarea
-                            id="caption"
-                            placeholder="What does this photo show?"
-                            value={caption}
-                            onChange={(e) => setCaption(e.target.value)}
-                          />
-                        </div>
-                        <Button type="submit" className="w-full" disabled={uploading || !selectedFile}>
-                          {uploading ? "Uploading..." : "Submit for verification"}
-                        </Button>
-                      </form>
-                    </DialogContent>
-                  </Dialog>
-                )}
-              </CardHeader>
-              <CardContent>
-                {photos.length === 0 ? (
-                  <p className="text-muted-foreground text-center py-8">No photos submitted yet.</p>
-                ) : (
-                  <div className="grid gap-4">
-                    {photos.map((photo) => (
-                      <div key={photo.id} className="space-y-2">
-                        {photoUrls[photo.photo_url] ? (
-                          <img
-                            src={photoUrls[photo.photo_url]}
-                            alt={photo.caption || "Project photo"}
-                            className="w-full h-48 object-cover rounded-lg"
-                          />
-                        ) : (
-                          <div className="w-full h-48 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">
-                            <Camera className="w-8 h-8" />
-                          </div>
-                        )}
-                        <p className="text-sm">{photo.caption}</p>
-                        <div className="flex items-center justify-between">
-                          <Badge variant={photo.verified ? "default" : "outline"}>
-                            {photo.verified ? "Verified" : "Pending verification"}
-                          </Badge>
-                          {isModerator && (
-                            <Button
-                              size="sm"
-                              variant={photo.verified ? "outline" : "default"}
-                              onClick={() => verifyPhoto(photo.id, !photo.verified)}
-                            >
-                              {photo.verified ? "Unverify" : "Verify"}
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <CommunityVerification projectId={project.id} />
           </div>
         </div>
       </main>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link as RouterLink } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -22,6 +22,7 @@ import {
   CalendarDays,
   Grid3X3,
   Rows3,
+  Store,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { FollowButton, FollowStats } from '@/components/FollowButton';
@@ -340,6 +341,15 @@ export default function Profile() {
                         Joined {joined}
                       </span>
                     )}
+                  </div>
+
+                  <div className="mt-4">
+                    <RouterLink to={`/shop/${profileId}`}>
+                      <Button variant="outline" size="sm" className="gap-2">
+                        <Store className="h-4 w-4" />
+                        {isOwnProfile ? 'My shop' : 'Visit shop'}
+                      </Button>
+                    </RouterLink>
                   </div>
 
                   <div className="mt-5 grid grid-cols-3 gap-3">

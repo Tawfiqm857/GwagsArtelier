@@ -14,7 +14,8 @@ import Navigation from "@/components/Navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Phone, Tag } from "lucide-react";
+import { Search, Phone, Tag, Store } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useSignedUrls } from "@/lib/storage";
 
 const categories = ["All", "Goods", "Services", "Food", "Fashion", "Electronics", "Home & Garden", "Beauty & Health", "Other"];
@@ -253,18 +254,26 @@ export default function Marketplace() {
                   <div className="flex flex-wrap gap-2 mb-4">
                     {listing.is_negotiable && <Badge variant="secondary">Negotiable</Badge>}
                   </div>
-                  {listing.whatsapp_number && (
-                    <a
-                      href={`https://wa.me/${listing.whatsapp_number.replace(/\D/g, "")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button variant="outline" size="sm" className="gap-2">
-                        <Phone className="w-4 h-4" />
-                        Contact seller
+                  <div className="flex flex-wrap items-center gap-2">
+                    {listing.whatsapp_number && (
+                      <a
+                        href={`https://wa.me/${listing.whatsapp_number.replace(/\D/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button variant="outline" size="sm" className="gap-2">
+                          <Phone className="w-4 h-4" />
+                          Contact seller
+                        </Button>
+                      </a>
+                    )}
+                    <Link to={`/shop/${listing.seller_id}`}>
+                      <Button variant="ghost" size="sm" className="gap-2">
+                        <Store className="w-4 h-4" />
+                        Visit shop
                       </Button>
-                    </a>
-                  )}
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             ))}
