@@ -342,6 +342,15 @@ export default function Profile() {
                     )}
                   </div>
 
+                  <div className="mt-4">
+                    <RouterLink to={`/shop/${profileId}`}>
+                      <Button variant="outline" size="sm" className="gap-2">
+                        <Store className="h-4 w-4" />
+                        {isOwnProfile ? 'My shop' : 'Visit shop'}
+                      </Button>
+                    </RouterLink>
+                  </div>
+
                   <div className="mt-5 grid grid-cols-3 gap-3">
                     <div className="rounded-xl border border-border p-3 text-center">
                       <p className="text-lg font-bold text-foreground">{posts.length}</p>
