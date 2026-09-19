@@ -22,6 +22,7 @@ import {
   CalendarDays,
   Grid3X3,
   Rows3,
+  Store,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { FollowButton, FollowStats } from '@/components/FollowButton';
