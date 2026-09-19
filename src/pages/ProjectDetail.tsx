@@ -66,57 +66,6 @@ export default function ProjectDetail() {
   };
 
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
-
-  const handleUpload = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user || !id || !selectedFile) return;
-
-    setUploading(true);
-    const fileName = `${user.id}/${Date.now()}-${selectedFile.name}`;
-    const { error: uploadError } = await supabase.storage
-      .from("project-photos")
-      .upload(fileName, selectedFile);
-
-    if (uploadError) {
-      toast({ variant: "destructive", title: "Upload failed", description: uploadError.message });
-      setUploading(false);
-      return;
-    }
-
-    const { error: insertError } = await supabase.from("project_photos").insert({
-      project_id: id,
-      uploaded_by: user.id,
-      photo_url: fileName,
-      caption,
-    });
-
-    setUploading(false);
-    if (insertError) {
-      toast({ variant: "destructive", title: "Could not save photo", description: insertError.message });
-    } else {
-      toast({ title: "Photo submitted", description: "It will appear after moderator verification." });
-      setCaption("");
-      setSelectedFile(null);
-      setUploadOpen(false);
-      fetchProject();
-    }
-  };
-
-  const verifyPhoto = async (photoId: string, verified: boolean) => {
-    const { error } = await supabase.from("project_photos").update({ verified }).eq("id", photoId);
-    if (error) {
-      toast({ variant: "destructive", title: "Update failed", description: error.message });
-    } else {
-      toast({ title: verified ? "Photo verified" : "Photo unverified" });
-      fetchProject();
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
