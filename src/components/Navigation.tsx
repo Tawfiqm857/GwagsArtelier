@@ -13,6 +13,7 @@ import InstallAppButton from "@/components/InstallAppButton";
 const Navigation = () => {
   const { theme, setTheme } = useTheme();
   const { user, signOut } = useAuth();
+  const { isModerator } = useRole();
   const navigate = useNavigate();
   const location = useLocation();
 
