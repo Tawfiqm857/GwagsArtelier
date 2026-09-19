@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NotificationsDropdown from "@/components/NotificationsDropdown";
 import BrandLogo from "@/components/BrandLogo";
 import InstallAppButton from "@/components/InstallAppButton";
+import PushOptIn from "@/components/PushOptIn";
 
 const Navigation = () => {
   const { theme, setTheme } = useTheme();
