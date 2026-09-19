@@ -40,31 +40,13 @@ interface Milestone {
   completed_at: string | null;
 }
 
-interface ProjectPhoto {
-  id: string;
-  photo_url: string;
-  caption: string;
-  submitted_at: string;
-  verified: boolean;
-}
-
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { isModerator } = useRole();
-  const { toast } = useToast();
 
   const [project, setProject] = useState<Project | null>(null);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
-  const [photos, setPhotos] = useState<ProjectPhoto[]>([]);
   const [loading, setLoading] = useState(true);
-  const [uploadOpen, setUploadOpen] = useState(false);
-  const [caption, setCaption] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const photoUrls = useSignedUrls("project-photos", photos.map((p) => p.photo_url));
 
   useEffect(() => {
     if (!id) return;
@@ -73,17 +55,16 @@ export default function ProjectDetail() {
 
   const fetchProject = async () => {
     setLoading(true);
-    const [{ data: projectData }, { data: milestonesData }, { data: photosData }] = await Promise.all([
+    const [{ data: projectData }, { data: milestonesData }] = await Promise.all([
       supabase.from("projects").select("*").eq("id", id).single(),
       supabase.from("project_milestones").select("*").eq("project_id", id).order("target_date", { ascending: true }),
-      supabase.from("project_photos").select("*").eq("project_id", id).order("submitted_at", { ascending: false }),
     ]);
 
     setProject(projectData || null);
     setMilestones(milestonesData || []);
-    setPhotos(photosData || []);
     setLoading(false);
   };
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
