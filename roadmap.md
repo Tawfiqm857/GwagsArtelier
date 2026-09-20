@@ -12,5 +12,11 @@
 
 - Private-bucket images now load via signed URLs (`src/lib/storage.ts`); project photos and marketplace images store object paths.
 
+- Citizen verification reports (photo/video, verdicts, optional anonymity) on project pages
+- Admin console at `/admin` (projects, milestones, revenue, documents, leadership, roles)
+- Push notifications (`push_subscriptions`, `/sw.js`, `send-push` function, DB trigger, in-app bell toggle)
+- Trader shops at `/shop/:userId`, linked from marketplace and profiles
+- Search at `/search` (people, posts, projects, market)
+
 ## Pending
 - Admin password change for `tawfiqm857@gmail.com` blocked: leaked-password protection rejected "AdminUser" as weak. Awaiting a stronger password (or explicit instruction to disable the protection).
