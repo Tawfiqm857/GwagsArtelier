@@ -19,4 +19,4 @@
 - Search at `/search` (people, posts, projects, market)
 
 ## Pending
-- Admin password change for `tawfiqm857@gmail.com` blocked: leaked-password protection rejected "AdminUser" as weak. Awaiting a stronger password (or explicit instruction to disable the protection).
+- Admin password for `tawfiqm857@gmail.com` updated (Sep 2026).
