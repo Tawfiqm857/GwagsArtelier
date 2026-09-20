@@ -34,7 +34,7 @@ export function useRole() {
     };
 
     fetchRoles();
-  }, [user]);
+  }, [user, authLoading]);
 
   const hasRole = (role: string) => roles.includes(role);
   const isAdmin = hasRole("admin");
