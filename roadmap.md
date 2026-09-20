@@ -18,5 +18,7 @@
 - Trader shops at `/shop/:userId`, linked from marketplace and profiles
 - Search at `/search` (people, posts, projects, market)
 
+- Admin password for `tawfiqm857@gmail.com` updated (Sep 2026)
+
 ## Pending
-- Admin password for `tawfiqm857@gmail.com` updated (Sep 2026).
+- None
