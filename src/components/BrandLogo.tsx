@@ -20,7 +20,7 @@ const BrandLogo = ({ className, imageClassName }: BrandLogoProps) => (
     <img
       src={gemLogo.url}
       alt="GEM — Gwagwalada Elite Movement crest"
-      className={cn("h-8 w-auto object-contain", imageClassName)}
+      className={cn("h-6 w-auto object-contain", imageClassName)}
       loading="eager"
       decoding="async"
     />

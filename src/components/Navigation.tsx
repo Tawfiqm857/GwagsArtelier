@@ -41,11 +41,11 @@ const Navigation = () => {
   return (
     <>
       <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center" aria-label="GEM home">
-            <BrandLogo imageClassName="h-9 w-auto" />
+            <BrandLogo imageClassName="h-7 w-auto" />
           </Link>
 
           {/* Desktop links */}
