@@ -11,9 +11,6 @@ coverage/
 dist/
 build/
 
-# Source
-src/
-
 # Misc
 .DS_Store
 .env.local
@@ -45,9 +42,4 @@ Thumbs.db
 README.md
 CHANGELOG.md
 
-# Config files
-tsconfig.json
-eslintrc.json
-tailwind.config.js
-postcss.config.js
-vite.config.ts
+# Build configuration files are required by Vercel and must not be ignored.
