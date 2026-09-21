@@ -113,6 +113,30 @@ export type Database = {
           },
         ]
       }
+      gem_member_badges: {
+        Row: {
+          approved_at: string
+          full_name: string
+          membership_id: string | null
+          user_id: string
+          ward: string
+        }
+        Insert: {
+          approved_at?: string
+          full_name: string
+          membership_id?: string | null
+          user_id: string
+          ward: string
+        }
+        Update: {
+          approved_at?: string
+          full_name?: string
+          membership_id?: string | null
+          user_id?: string
+          ward?: string
+        }
+        Relationships: []
+      }
       gem_memberships: {
         Row: {
           admin_notes: string | null
@@ -834,30 +858,7 @@ export type Database = {
       }
     }
     Views: {
-      approved_members: {
-        Row: {
-          approved_at: string | null
-          full_name: string | null
-          membership_id: string | null
-          user_id: string | null
-          ward: string | null
-        }
-        Insert: {
-          approved_at?: string | null
-          full_name?: string | null
-          membership_id?: string | null
-          user_id?: string | null
-          ward?: string | null
-        }
-        Update: {
-          approved_at?: string | null
-          full_name?: string | null
-          membership_id?: string | null
-          user_id?: string | null
-          ward?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       [_ in never]: never
