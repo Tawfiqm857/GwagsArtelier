@@ -1,4 +1,4 @@
-import gemLogo from "@/assets/gem-logo.jpg.asset.json";
+import gemLogo from "@/assets/gem-logo.png";
 import { cn } from "@/lib/utils";
 
 interface BrandLogoProps {
@@ -18,7 +18,7 @@ const BrandLogo = ({ className, imageClassName }: BrandLogoProps) => (
     )}
   >
     <img
-      src={gemLogo.url}
+      src={gemLogo}
       alt="GEM — Gwagwalada Elite Movement crest"
       className={cn("h-6 w-auto object-contain", imageClassName)}
       loading="eager"
