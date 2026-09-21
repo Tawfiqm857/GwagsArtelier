@@ -46,6 +46,9 @@ const Posts = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const memberIds = useMemberBadges(
+    [...posts, ...followingPosts].map((p) => p.user_id)
+  );
 
   useEffect(() => {
     fetchPosts();
