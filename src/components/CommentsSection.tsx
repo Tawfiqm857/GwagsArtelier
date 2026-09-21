@@ -8,6 +8,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Trash2 } from "lucide-react";
 import { createNotification } from "@/hooks/useNotifications";
+import MemberBadge from "@/components/MemberBadge";
+import { useMemberBadges } from "@/hooks/useMemberBadges";
 
 interface Comment {
   id: string;
@@ -193,8 +195,9 @@ export function CommentsSection({ postId, postOwnerId, commentsCount }: Comments
               <div className="flex-1">
                 <div className="bg-muted/50 rounded-lg px-3 py-2">
                   <div className="flex items-center gap-2">
-                    <Link to={`/profile/${comment.user_id}`} className="font-semibold text-sm hover:underline">
+                    <Link to={`/profile/${comment.user_id}`} className="font-semibold text-sm hover:underline inline-flex items-center gap-1">
                       {comment.profiles?.display_name || comment.profiles?.username || 'Anonymous'}
+                      {memberIds.has(comment.user_id) && <MemberBadge />}
                     </Link>
                     <span className="text-xs text-muted-foreground">
                       {formatTimeAgo(comment.created_at)}

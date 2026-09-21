@@ -10,6 +10,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { CommentsSection } from "./CommentsSection";
 import { createNotification } from "@/hooks/useNotifications";
+import MemberBadge from "@/components/MemberBadge";
+import { useMemberBadges } from "@/hooks/useMemberBadges";
 
 interface Post {
   id: string;
@@ -360,8 +362,9 @@ const PostsFeed = () => {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h3 className="font-semibold text-lg">
+                        <h3 className="font-semibold text-lg flex items-center gap-1.5">
                           {post.profiles?.display_name || post.profiles?.username || 'Anonymous'}
+                          {memberIds.has(post.user_id) && <MemberBadge />}
                         </h3>
                         <p className="text-sm text-muted-foreground">
                           {formatTimeAgo(post.created_at)}

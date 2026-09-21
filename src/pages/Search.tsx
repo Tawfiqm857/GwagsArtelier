@@ -113,7 +113,10 @@ export default function Search() {
                         <AvatarFallback>{(p.display_name || p.username || "G").charAt(0).toUpperCase()}</AvatarFallback>
                       </Avatar>
                       <div>
-                        <div className="font-medium">{p.display_name || p.username || "Resident"}</div>
+                        <div className="font-medium flex items-center gap-1.5">
+                          {p.display_name || p.username || "Resident"}
+                          {memberIds.has(p.id) && <MemberBadge />}
+                        </div>
                         {p.bio && <p className="text-sm text-muted-foreground line-clamp-1">{p.bio}</p>}
                       </div>
                     </CardContent>
