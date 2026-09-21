@@ -69,6 +69,7 @@ export default function Profile() {
 
   const profileId = userId || user?.id;
   const isOwnProfile = user?.id === profileId;
+  const { card: memberCard } = useMemberCard(profileId);
 
   useEffect(() => {
     if (profileId) {
