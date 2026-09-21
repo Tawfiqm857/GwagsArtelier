@@ -325,6 +325,7 @@ export default function Admin() {
             <TabsTrigger value="leadership">Leadership</TabsTrigger>
             <TabsTrigger value="roles">Roles</TabsTrigger>
             <TabsTrigger value="requests">Requests</TabsTrigger>
+            <TabsTrigger value="members">Movement Applications</TabsTrigger>
           </TabsList>
 
           {/* PROJECTS */}
