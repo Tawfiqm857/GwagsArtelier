@@ -23,9 +23,12 @@ import {
   Grid3X3,
   Rows3,
   Store,
+  BadgeCheck,
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { FollowButton, FollowStats } from '@/components/FollowButton';
+import MemberBadge from '@/components/MemberBadge';
+import { useMemberCard } from '@/hooks/useMemberBadges';
 
 interface ProfileData {
   id: string;
@@ -66,6 +69,7 @@ export default function Profile() {
 
   const profileId = userId || user?.id;
   const isOwnProfile = user?.id === profileId;
+  const { card: memberCard } = useMemberCard(profileId);
 
   useEffect(() => {
     if (profileId) {
@@ -311,7 +315,10 @@ export default function Profile() {
                 </div>
               ) : (
                 <div className="mt-4">
-                  <h1 className="text-2xl font-bold text-foreground">{name}</h1>
+                  <h1 className="flex items-center gap-2 text-2xl font-bold text-foreground">
+                    {name}
+                    {memberCard && <MemberBadge showLabel className="text-base" />}
+                  </h1>
                   {profile.username && (
                     <p className="text-muted-foreground">@{profile.username}</p>
                   )}
@@ -342,6 +349,32 @@ export default function Profile() {
                       </span>
                     )}
                   </div>
+
+                  {memberCard ? (
+                    <div className="mt-4 rounded-xl border border-primary/40 bg-primary/5 p-4">
+                      <div className="flex items-center gap-2 font-semibold text-primary">
+                        <BadgeCheck className="h-4 w-4" />
+                        Official GEM Member
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {memberCard.full_name} • {memberCard.ward} Ward
+                      </p>
+                      <p className="mt-1 font-mono text-xs text-muted-foreground">
+                        {memberCard.membership_id}
+                      </p>
+                    </div>
+                  ) : (
+                    isOwnProfile && (
+                      <div className="mt-4">
+                        <RouterLink to="/join-gem">
+                          <Button variant="outline" size="sm" className="gap-2">
+                            <BadgeCheck className="h-4 w-4" />
+                            Register as a GEM member
+                          </Button>
+                        </RouterLink>
+                      </div>
+                    )
+                  )}
 
                   <div className="mt-4">
                     <RouterLink to={`/shop/${profileId}`}>

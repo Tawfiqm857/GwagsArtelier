@@ -12,6 +12,8 @@ import {
   Users,
   UsersRound,
   User,
+  Award,
+  BadgeCheck,
 } from "lucide-react";
 import {
   Sheet,
@@ -31,6 +33,8 @@ const primaryLinks = [
 ];
 
 const moreLinks = [
+  { path: "/movement", label: "The Movement", icon: Award },
+  { path: "/join-gem", label: "Join GEM", icon: BadgeCheck },
   { path: "/transparency", label: "Transparency", icon: ShieldCheck },
   { path: "/governance", label: "Governance", icon: Landmark },
   { path: "/services", label: "Services", icon: FileText },

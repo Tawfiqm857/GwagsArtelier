@@ -113,6 +113,99 @@ export type Database = {
           },
         ]
       }
+      gem_member_badges: {
+        Row: {
+          approved_at: string
+          full_name: string
+          membership_id: string | null
+          user_id: string
+          ward: string
+        }
+        Insert: {
+          approved_at?: string
+          full_name: string
+          membership_id?: string | null
+          user_id: string
+          ward: string
+        }
+        Update: {
+          approved_at?: string
+          full_name?: string
+          membership_id?: string | null
+          user_id?: string
+          ward?: string
+        }
+        Relationships: []
+      }
+      gem_memberships: {
+        Row: {
+          admin_notes: string | null
+          approved_at: string | null
+          approved_by: string | null
+          committee_interest: string
+          created_at: string
+          full_name: string
+          id: string
+          membership_id: string | null
+          nimc_document_path: string
+          nin: string
+          phone: string
+          pledge_accepted: boolean
+          profession: string
+          residential_address: string
+          skills: string
+          status: Database["public"]["Enums"]["membership_status"]
+          updated_at: string
+          user_id: string
+          voter_card_number: string | null
+          ward: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          committee_interest: string
+          created_at?: string
+          full_name: string
+          id?: string
+          membership_id?: string | null
+          nimc_document_path: string
+          nin: string
+          phone: string
+          pledge_accepted?: boolean
+          profession: string
+          residential_address: string
+          skills: string
+          status?: Database["public"]["Enums"]["membership_status"]
+          updated_at?: string
+          user_id: string
+          voter_card_number?: string | null
+          ward: string
+        }
+        Update: {
+          admin_notes?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          committee_interest?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          membership_id?: string | null
+          nimc_document_path?: string
+          nin?: string
+          phone?: string
+          pledge_accepted?: boolean
+          profession?: string
+          residential_address?: string
+          skills?: string
+          status?: Database["public"]["Enums"]["membership_status"]
+          updated_at?: string
+          user_id?: string
+          voter_card_number?: string | null
+          ward?: string
+        }
+        Relationships: []
+      }
       group_members: {
         Row: {
           group_id: string
@@ -792,6 +885,7 @@ export type Database = {
         | "Home & Garden"
         | "Beauty & Health"
         | "Other"
+      membership_status: "pending" | "approved" | "needs_info" | "rejected"
       project_entity_badge:
         | "GEM Grassroots"
         | "Area Council Municipal"
@@ -960,6 +1054,7 @@ export const Constants = {
         "Beauty & Health",
         "Other",
       ],
+      membership_status: ["pending", "approved", "needs_info", "rejected"],
       project_entity_badge: [
         "GEM Grassroots",
         "Area Council Municipal",

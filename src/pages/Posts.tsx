@@ -15,6 +15,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { CommentsSection } from "@/components/CommentsSection";
+import MemberBadge from "@/components/MemberBadge";
+import { useMemberBadges } from "@/hooks/useMemberBadges";
 
 interface Post {
   id: string;
@@ -44,6 +46,9 @@ const Posts = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const memberIds = useMemberBadges(
+    [...posts, ...followingPosts].map((p) => p.user_id)
+  );
 
   useEffect(() => {
     fetchPosts();
@@ -280,8 +285,9 @@ const Posts = () => {
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-semibold">
+              <p className="flex items-center gap-1.5 font-semibold">
                 {post.profile?.display_name || post.profile?.username || "User"}
+                {memberIds.has(post.user_id) && <MemberBadge />}
               </p>
               <p className="text-sm text-muted-foreground">
                 {format(new Date(post.created_at), "MMM d, yyyy • HH:mm")}

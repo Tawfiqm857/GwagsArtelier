@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MembershipApplications from "@/components/admin/MembershipApplications";
 import {
   Select,
   SelectContent,
@@ -325,6 +326,7 @@ export default function Admin() {
             <TabsTrigger value="leadership">Leadership</TabsTrigger>
             <TabsTrigger value="roles">Roles</TabsTrigger>
             <TabsTrigger value="requests">Requests</TabsTrigger>
+            <TabsTrigger value="members">Movement Applications</TabsTrigger>
           </TabsList>
 
           {/* PROJECTS */}
@@ -673,6 +675,11 @@ export default function Admin() {
                 </p>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* MOVEMENT APPLICATIONS */}
+          <TabsContent value="members" className="mt-6">
+            <MembershipApplications />
           </TabsContent>
         </Tabs>
       </main>

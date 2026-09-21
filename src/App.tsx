@@ -23,6 +23,8 @@ import Marketplace from "./pages/Marketplace";
 import Admin from "./pages/Admin";
 import Shop from "./pages/Shop";
 import Search from "./pages/Search";
+import Movement from "./pages/Movement";
+import JoinGem from "./pages/JoinGem";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +57,8 @@ const App = () => (
               <Route path="/admin" element={<Admin />} />
               <Route path="/shop/:userId" element={<Shop />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/movement" element={<Movement />} />
+              <Route path="/join-gem" element={<JoinGem />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

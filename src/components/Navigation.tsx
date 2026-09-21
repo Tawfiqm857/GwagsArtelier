@@ -28,6 +28,7 @@ const Navigation = () => {
   const navLinks = [
     { path: '/', label: 'Feed' },
     { path: '/posts', label: 'Posts' },
+    { path: '/movement', label: 'Movement' },
     { path: '/projects', label: 'Projects' },
     { path: '/transparency', label: 'Transparency' },
     { path: '/governance', label: 'Governance' },

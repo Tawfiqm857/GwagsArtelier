@@ -10,6 +10,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search as SearchIcon } from "lucide-react";
+import MemberBadge from "@/components/MemberBadge";
+import { useMemberBadges } from "@/hooks/useMemberBadges";
 
 export default function Search() {
   const [params, setParams] = useSearchParams();
@@ -21,6 +23,7 @@ export default function Search() {
   const [posts, setPosts] = useState<any[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
   const [listings, setListings] = useState<any[]>([]);
+  const memberIds = useMemberBadges(people.map((p) => p.id));
 
   useEffect(() => {
     if (!query.trim()) {
@@ -113,7 +116,10 @@ export default function Search() {
                         <AvatarFallback>{(p.display_name || p.username || "G").charAt(0).toUpperCase()}</AvatarFallback>
                       </Avatar>
                       <div>
-                        <div className="font-medium">{p.display_name || p.username || "Resident"}</div>
+                        <div className="font-medium flex items-center gap-1.5">
+                          {p.display_name || p.username || "Resident"}
+                          {memberIds.has(p.id) && <MemberBadge />}
+                        </div>
                         {p.bio && <p className="text-sm text-muted-foreground line-clamp-1">{p.bio}</p>}
                       </div>
                     </CardContent>
