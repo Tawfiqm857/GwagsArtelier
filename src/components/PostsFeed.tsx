@@ -40,6 +40,7 @@ const PostsFeed = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const memberIds = useMemberBadges(posts.map((p) => p.user_id));
 
   useEffect(() => {
     fetchPosts();

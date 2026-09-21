@@ -38,6 +38,7 @@ export function CommentsSection({ postId, postOwnerId, commentsCount }: Comments
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const memberIds = useMemberBadges(comments.map((c) => c.user_id));
 
   useEffect(() => {
     if (isExpanded) {
