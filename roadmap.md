@@ -20,5 +20,10 @@
 
 - Admin password for `tawfiqm857@gmail.com` updated (Sep 2026)
 
+- Movement Hub `/movement` (pillars, leadership spotlight, wards, member tally)
+- GEM membership registration `/join-gem` (NIN + NIMC slip upload to private `membership-docs`, pledge, status states)
+- Admin "Movement Applications" tab (status/ward filters, NIMC slip via signed URL, Approve / Request info / Decline)
+- App-wide GEM member badges (feed, posts page, comments, search, profile + digital member card)
+
 ## Pending
-- None
+- Online classroom (live virtual classes, timetable, recordings) — still in discussion
